@@ -4,7 +4,6 @@ exports.Node = function(framework){
   var build = webdriver.Builder.prototype.build;
 
   webdriver.Builder.prototype.build = function(){
-    console.log(this);
     if(process.env.RUN_ON_BS){
       if(framework) this.capabilities_.set("browserstack.framework", framework);
       this.capabilities_.set("browserstack.user", process.env.BROWSERSTACK_USER);
@@ -18,7 +17,25 @@ exports.Node = function(framework){
 exports.Protractor = function(){
   var protractor = require('protractor');
 
-  console.log(protractor);
-
   exports.Node('protractor');
+}
+
+exports.Nightwatch = function(){
+  var nightwatch = require('nightwatch');
+
+  var client = nightwatch.client;
+  nightwatch.client = function(options){
+    if(process.env.RUN_ON_BS){
+      options["desiredCapabilities"] = {
+        "browserstack.user": process.env.BROWSERSTACK_USER,
+        "browserstack.key": process.env.BROWSERSTACK_ACCESS_KEY,
+        "browserstack.framework": "nightwatch"
+      }
+      options["seleniumHost"] = "hub.browserstack.com";
+      options["seleniumPort"] = 80;
+    }
+    return client(options);
+  }
+
+  exports.Node('nightwatch');
 }
