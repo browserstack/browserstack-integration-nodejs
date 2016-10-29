@@ -5,7 +5,7 @@ module Selenium
     class << self
       alias_method :original_for, :for
 
-      def self.for(*args)
+      def for(*args)
         browser = args.shift
         opts = args.shift || {}
         opts[:url] = opts[:url] || "http://127.0.0.1:4444/wd/hub"
