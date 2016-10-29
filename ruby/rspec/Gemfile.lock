@@ -3,9 +3,23 @@ GEM
   specs:
     childprocess (0.5.9)
       ffi (~> 1.0, >= 1.0.11)
+    diff-lcs (1.2.5)
     ffi (1.9.14)
     multi_json (1.12.1)
     rake (11.3.0)
+    rspec (3.4.0)
+      rspec-core (~> 3.4.0)
+      rspec-expectations (~> 3.4.0)
+      rspec-mocks (~> 3.4.0)
+    rspec-core (3.4.4)
+      rspec-support (~> 3.4.0)
+    rspec-expectations (3.4.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.4.0)
+    rspec-mocks (3.4.1)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.4.0)
+    rspec-support (3.4.1)
     rubyzip (1.2.0)
     selenium-webdriver (2.48.1)
       childprocess (~> 0.5)
@@ -19,6 +33,8 @@ PLATFORMS
 
 DEPENDENCIES
   rake
+  rspec
+  rspec-core (~> 3.4.4)
   selenium-webdriver (~> 2.48.0)
 
 BUNDLED WITH
