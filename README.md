@@ -31,3 +31,30 @@ Currently supports Node (Protractor, Nightwatch) and Ruby (Capybara, Rspec)
 - To run locally, run `./node_modules/nightwatch/bin/nightwatch nightwatch/conf.js`
 - To run on BrowserStack, run `RUN_ON_BS=1 ./node_modules/nightwatch/bin/nightwatch nightwatch/conf.js`
 
+
+# Ruby
+
+## Setup
+* Clone the repo
+* Install dependencies `cd ruby && bundle install`
+* Export the environment variables for the Username and Access Key of your BrowserStack account
+  
+  ```
+  export BROWSERSTACK_USERNAME=<browserstack-username> &&
+  export BROWSERSTACK_ACCESS_KEY=<browserstack-access-key>
+  ```
+
+## Running the test
+
+### Ruby script
+- To run locally, run `ruby sample.rb`
+[//]: # - To run on BrowserStack, run `RUN_ON_BS=1 ruby sample.rb`
+
+### Rspec test
+- To run locally, run `rspec spec`
+[//]: # - To run on BrowserStack, run `RUN_ON_BS=1 rspec rspec/spec`
+
+### Cucumber test
+- To run locally, run `cd cucumber && cucumber`
+[//]: # - To run on BrowserStack, run `cd cucumber && RUN_ON_BS=1 cucumber`
+
