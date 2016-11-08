@@ -1,11 +1,20 @@
-var nightwatchPatch = require('./nightwatchPatch.js').nightwatchPatch;
-var defaultPatch = require('./defaultPatch.js').defaultPatch;
+var nightwatchPatch = require('./framework_patches/nightwatchPatch.js').nightwatchPatch;
+var defaultPatch = require('./framework_patches/defaultPatch.js').defaultPatch;
 
 var patch = function(frameworkPatch) {
   if(process.env.RUN_ON_BSTACK && process.env.RUN_ON_BSTACK.toString().toLowerCase() == 'true') {
     frameworkPatch.addCapability('browserstack.user', process.env.BROWSERSTACK_USERNAME);
     frameworkPatch.addCapability('browserstack.key', process.env.BROWSERSTACK_ACCESS_KEY);
     frameworkPatch.seleniumHost('hub.browserstack.com', 80);
+    if(process.env.BSTACK_BUILD) {
+      frameworkPatch.addCapability('build', process.env.BSTACK_BUILD);
+    }
+    if(process.env.BSTACK_PROJECT) {
+      frameworkPatch.addCapability('project', process.env.BSTACK_PROJECT);
+    }
+    if(process.env.BSTACK_NAME) {
+      frameworkPatch.addCapability('name', process.env.BSTACK_NAME);
+    }
     frameworkPatch.patch();
   }
 };
