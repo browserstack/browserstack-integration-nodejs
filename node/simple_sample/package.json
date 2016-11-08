@@ -1,0 +1,14 @@
+{
+  "name": "simple_sample",
+  "version": "1.0.0",
+  "description": "",
+  "main": "sample.js",
+  "scripts": {
+    "test": "node sample.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "selenium-webdriver": "3.0.0"
+  }
+}
