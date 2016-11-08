@@ -1,7 +1,6 @@
 var webdriver = require('selenium-webdriver');
 
 require('browserstack-patch').Node();
-console.log((webdriver.Builder.prototype.build).toString());
 
 var repeat = process.env.REPEAT || 5;
 
