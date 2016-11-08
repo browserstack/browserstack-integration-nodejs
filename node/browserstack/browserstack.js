@@ -1,5 +1,6 @@
 var nightwatchPatch = require('./framework_patches/nightwatchPatch.js').nightwatchPatch;
 var defaultPatch = require('./framework_patches/defaultPatch.js').defaultPatch;
+var trackEnvironment = require('./ci_environment.js').trackEnvironment;
 
 var patch = function(frameworkPatch) {
   if(process.env.RUN_ON_BSTACK && process.env.RUN_ON_BSTACK.toString().toLowerCase() == 'true') {
@@ -15,6 +16,7 @@ var patch = function(frameworkPatch) {
     if(process.env.BSTACK_NAME) {
       frameworkPatch.addCapability('name', process.env.BSTACK_NAME);
     }
+    trackEnvironment(frameworkPatch.addCapability);
     frameworkPatch.patch();
   }
 };
