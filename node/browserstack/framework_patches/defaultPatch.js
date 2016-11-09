@@ -21,7 +21,7 @@ exports.defaultPatch = function() {
     seleniumHost: function(host, port) {
       bstackURL = 'http://' + host + ':' + port + '/wd/hub';
     },
-    patch: function() {
+    patch: function(beforeAll, afterAll) {
       if(webdriver && build) {
         webdriver.Builder.prototype.build = function() {
           var that = this;
