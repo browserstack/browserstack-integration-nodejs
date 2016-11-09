@@ -8,17 +8,13 @@ var BrowserStackPatch = function() {
     bstackLocal;
 
   var beforeAll = function(callback) {
-    console.log('beforeAll');
     bstackLocal = new browserstackLocal.Local();
     bstackLocal.start({
       key: process.env.BROWSERSTACK_ACCESS_KEY,
       localIdentifier: bstackIdentifier
-    }, function() {
-      callback();
-    });
+    }, callback);
   };
   var afterAll = function(callback) {
-    console.log('afterAll');
     if(bstackLocal) {
       bstackLocal.stop(function() {
         callback();
@@ -62,4 +58,4 @@ exports.Protractor = function() {
 };
 exports.Nightwatch = function(config) {
   (new BrowserStackPatch()).patch(new nightwatchPatch(config));
-;
+};

@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "browserstack-local": "^1.2.0"
+    "browserstack-local": "^1.2.0",
+    "sync": "^0.2.5"
   }
 }

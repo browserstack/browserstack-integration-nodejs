@@ -1,3 +1,5 @@
+var path = require('path');
+
 exports.nightwatchPatch = function(nightwatchConfig) {
   var patchOptions = {
       desiredCapabilities: {
@@ -16,24 +18,16 @@ exports.nightwatchPatch = function(nightwatchConfig) {
       var nightwatch = require('nightwatch');
       var client = nightwatch.client;
 
-      // console.log(nightwatchConfig.test_settings.before = function(done) {
-      //   console.log('ahsdfgbaskjhdfnb');
-      //   done();
-      // });
-      // nightwatchConfig.before = function(browser) {
-      //   beforeAll(origBefore.bind(browser));
-      // };
-      // nightwatchConfig.after = function(browser) {
-      //   afterAll(origAfter.bind(browser));
-      // };
-      console.log(nightwatch.prototype);
-      console.log(nightwatch.client.toString());
-      nightwatch.client.prototype.setOptions = function(options) {
-        console.log(options);
+      var CliRunner = require(path.join(require.main.filename, '../../lib/runner/cli/clirunner.js'));
+      var origStartSelenium = CliRunner.prototype.startSelenium;
+      CliRunner.prototype.startSelenium = function(callback) {
+        var self = this;
+        beforeAll(function() {
+          origStartSelenium.apply(self, [ callback ]);
+        });
       };
 
       nightwatch.client = function(options) {
-        console.log(options.globals.before.toString());
         Object.keys(patchOptions.desiredCapabilities).forEach(function(patchKey) {
           options.desiredCapabilities[patchKey] = patchOptions.desiredCapabilities[patchKey];
         });
@@ -41,15 +35,10 @@ exports.nightwatchPatch = function(nightwatchConfig) {
         Object.keys(patchOptions).forEach(function(patchKey) {
           options[patchKey] = patchOptions[patchKey];
         });
-        options.globals.before = function(done) {
-          beforeAll(function() {
-          });
-        }
+        options.globals.before = beforeAll;
         options.globals.after = afterAll;
-        var a = client(options);
-        console.log(a);
-        return a;
+        return client(options);
       };
     }
   }
-};
+}
