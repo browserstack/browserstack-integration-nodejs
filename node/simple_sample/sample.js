@@ -1,6 +1,6 @@
-require('./browserstack').Node();
-
 var webdriver = require('selenium-webdriver');
+
+require('browserstack-patch').Node();
 
 var repeat = process.env.REPEAT || 5;
 

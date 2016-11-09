@@ -2,6 +2,7 @@ require('../browserstack').Nightwatch();
 
 nightwatch_config = {
   src_folders : [ "test" ],
+  globals_path: 'globals.js',
 
   selenium : {
     "start_process" : false
@@ -10,7 +11,7 @@ nightwatch_config = {
   test_settings: {
     default: {
       desiredCapabilities: {
-        'browser': 'chrome'
+        browserName: 'chrome'
       }
     }
   }
