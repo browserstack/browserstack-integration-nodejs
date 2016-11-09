@@ -1,11 +1,11 @@
 var path = require('path');
 
-exports.nightwatchPatch = function(nightwatchConfig) {
+exports.nightwatchPatch = function() {
   var patchOptions = {
-      desiredCapabilities: {
-        'browserstack.framework': 'nightwatch'
-      }
-    };
+    desiredCapabilities: {
+      'browserstack.framework': 'nightwatch'
+    }
+  };
   return {
     addCapability: function(key, value) {
       patchOptions['desiredCapabilities'][key] = value;
@@ -40,5 +40,5 @@ exports.nightwatchPatch = function(nightwatchConfig) {
         return client(options);
       };
     }
-  }
-}
+  };
+};

@@ -8,9 +8,9 @@ exports.defaultPatch = function() {
     if(module.id && module.id.endsWith('selenium-webdriver/index.js')) {
       webdriver = require(module.id);
     }
-  };
+  }
   if(webdriver) {
-    var build = webdriver.Builder.prototype.build;
+    build = webdriver.Builder.prototype.build;
   }
 
 
@@ -21,7 +21,7 @@ exports.defaultPatch = function() {
     seleniumHost: function(host, port) {
       bstackURL = 'http://' + host + ':' + port + '/wd/hub';
     },
-    patch: function(beforeAll, afterAll) {
+    patch: function() {
       if(webdriver && build) {
         webdriver.Builder.prototype.build = function() {
           var that = this;
@@ -30,8 +30,8 @@ exports.defaultPatch = function() {
           });
           this.url_ = bstackURL;
           return build.call(this);
-        }
+        };
       }
     }
-  }
+  };
 };

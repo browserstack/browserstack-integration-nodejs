@@ -3,9 +3,9 @@ var defaultPatch = require('./framework_patches/defaultPatch.js').defaultPatch;
 var trackEnvironment = require('./ci_environment.js').trackEnvironment;
 var browserstackLocal = require('browserstack-local');
 
-var BrowserStackPatch = function() {
-  var bstackIdentifier = 'bstack_patches_' + (Math.random().toString(36)+'00000000000000000').slice(2, 18),
-    bstackLocal;
+var BrowserStackPatch = function () {
+  var bstackIdentifier = 'bstack_patches_' + (Math.random().toString(36)+'00000000000000000').slice(2, 18);
+  var bstackLocal;
 
   var beforeAll = function(callback) {
     bstackLocal = new browserstackLocal.Local();
@@ -46,7 +46,7 @@ var BrowserStackPatch = function() {
       }
     }
   };
-}
+};
 
 exports.Node = function(config) {
   (new BrowserStackPatch()).patch(new defaultPatch(config));
