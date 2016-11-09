@@ -36,7 +36,7 @@ exports.nightwatchPatch = function() {
           options[patchKey] = patchOptions[patchKey];
         });
         var origAfter = options.globals.after;
-        origAfter = origAfter || function() {};
+        origAfter = origAfter || function(done) { done() };
         options.globals.after = function(done) {
           afterAll(function() {
             origAfter(done);
