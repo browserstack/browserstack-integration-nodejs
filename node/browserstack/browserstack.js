@@ -16,9 +16,9 @@ var BrowserStackPatch = function () {
   };
   var afterAll = function(callback) {
     if(bstackLocal) {
-      bstackLocal.stop(function() {
-        callback();
-      });
+      bstackLocal.stop(callback);
+    } else {
+      callback();
     }
   };
 

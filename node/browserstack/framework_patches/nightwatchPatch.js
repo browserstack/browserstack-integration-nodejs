@@ -35,8 +35,13 @@ exports.nightwatchPatch = function() {
         Object.keys(patchOptions).forEach(function(patchKey) {
           options[patchKey] = patchOptions[patchKey];
         });
-        options.globals.before = beforeAll;
-        options.globals.after = afterAll;
+        var origAfter = options.globals.after;
+        origAfter = origAfter || function() {};
+        options.globals.after = function(done) {
+          afterAll(function() {
+            origAfter(done);
+          });
+        };
         return client(options);
       };
     }
