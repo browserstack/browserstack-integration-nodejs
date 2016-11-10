@@ -1,4 +1,6 @@
 node_modules
 selenium*.jar
 tests_output
+*.gemfile
+*.lock
 local.log

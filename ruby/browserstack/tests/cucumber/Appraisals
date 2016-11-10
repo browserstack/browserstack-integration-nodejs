@@ -1,0 +1,7 @@
+appraise "cucumber-old" do
+  gem "cucumber"
+end
+
+appraise "cucumber-2.4.0" do
+  gem "cucumber", "2.4.0"
+end

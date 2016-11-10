@@ -1,0 +1,3 @@
+task :cucumber do
+  system("RUN_ON_BSTACK=true cd cucumber && bundle install && bundle exec appraisal cucumber")
+end
