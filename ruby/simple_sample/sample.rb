@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'selenium-webdriver'
+require 'browserstack-patch'
 
-require './browserstack.rb'
 BrowserStack.for "ruby"
 
 @repeat = ENV['REPEAT'] || 5
