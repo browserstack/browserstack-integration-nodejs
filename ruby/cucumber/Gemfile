@@ -3,5 +3,5 @@ source "http://rubygems.org"
 
 # gem "rails"
 
-gem "cucumber"
+gem "cucumber", '2.4.0'
 gem "browserstack-patch", path: "../browserstack"

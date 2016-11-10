@@ -16,7 +16,7 @@ module Selenium
         opts[:desired_capabilities][:browserName] = browser
 
         if ENV['RUN_ON_BSTACK'] && ENV['RUN_ON_BSTACK'].match(/true/i)
-          opts[:url] = "http://#{ENV['BROWSERSTACK_USER']}:#{ENV['BROWSERSTACK_ACCESS_KEY']}@hub.browserstack.com/wd/hub"
+          opts[:url] = "http://#{ENV['BROWSERSTACK_USERNAME']}:#{ENV['BROWSERSTACK_ACCESS_KEY']}@hub.browserstack.com/wd/hub"
 
           opts[:desired_capabilities]['browserstack.framework'] = BrowserStack::get_framework
           opts[:desired_capabilities]['build'] = ENV['BSTACK_BUILD'] if ENV['BSTACK_BUILD']
