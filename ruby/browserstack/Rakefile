@@ -1,2 +1,7 @@
 require "bundler/gem_tasks"
 task :default => :spec
+task :spec => [:cucumber]
+
+task :cucumber do
+  system("cd tests/cucumber && bundle install && RUN_ON_BSTACK=true bundle exec appraisal cucumber")
+end
