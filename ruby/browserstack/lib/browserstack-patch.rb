@@ -1,4 +1,7 @@
 require 'selenium/webdriver'
+require 'browserstack/local'
+
+$cucumber_after = self.method(:After)
 
 module Selenium
   module WebDriver
@@ -8,17 +11,22 @@ module Selenium
       def for(*args)
         browser = args.shift
         opts = args.shift || {}
-        opts[:url] = opts[:url] || "http://127.0.0.1:4444/wd/hub"
+        opts[:url] = opts[:url] || 'http://127.0.0.1:4444/wd/hub'
         opts[:desired_capabilities] = opts[:desired_capabilities] || {}
         opts[:desired_capabilities][:browserName] = browser
 
-        if ENV["RUN_ON_BSTACK"] && ENV["RUN_ON_BSTACK"].match(/true/i)
-          opts[:url] = "http://#{ENV["BROWSERSTACK_USER"]}:#{ENV["BROWSERSTACK_ACCESS_KEY"]}@hub.browserstack.com/wd/hub"
+        if ENV['RUN_ON_BSTACK'] && ENV['RUN_ON_BSTACK'].match(/true/i)
+          opts[:url] = "http://#{ENV['BROWSERSTACK_USER']}:#{ENV['BROWSERSTACK_ACCESS_KEY']}@hub.browserstack.com/wd/hub"
 
-          opts[:desired_capabilities]["browserstack.framework"] = BrowserStack::get_framework
-          opts[:desired_capabilities]["build"] = ENV["BSTACK_BUILD"] if ENV["BSTACK_BUILD"]
-          opts[:desired_capabilities]["project"] = ENV["BSTACK_PROJECT"] if ENV["BSTACK_PROJECT"]
-          opts[:desired_capabilities]["name"] = ENV["BSTACK_NAME"] if ENV["BSTACK_NAME"]
+          opts[:desired_capabilities]['browserstack.framework'] = BrowserStack::get_framework
+          opts[:desired_capabilities]['build'] = ENV['BSTACK_BUILD'] if ENV['BSTACK_BUILD']
+          opts[:desired_capabilities]['project'] = ENV['BSTACK_PROJECT'] if ENV['BSTACK_PROJECT']
+          opts[:desired_capabilities]['name'] = ENV['BSTACK_NAME'] if ENV['BSTACK_NAME']
+          if ENV['BSTACK_LOCAL'] && ENV['BSTACK_LOCAL'].match(/true/i)
+            BrowserStack.start_local
+            opts[:desired_capabilities]['browserstack.local'] = true
+            opts[:desired_capabilities]['browserstack.localIdentifier'] = BrowserStack::get_identifier
+          end
           BrowserStack::track_environment(opts[:desired_capabilities])
         end
 
@@ -29,7 +37,9 @@ module Selenium
 end
 
 module BrowserStack
-  @@framework = "ruby"
+  @@framework = 'ruby'
+  @@bs_local = nil
+  @@bstack_identifier = 'asd'
 
   def self.for(framework)
     @@framework = framework
@@ -37,6 +47,10 @@ module BrowserStack
 
   def self.get_framework
     @@framework
+  end
+
+  def self.get_identifier
+    @@bstack_identifier
   end
 
   def self.track_environment(track_hash)
@@ -53,6 +67,20 @@ module BrowserStack
       track_hash['ci_env.jenkins.job_name'] = ENV['process.env.JOB_NAME']
       track_hash['ci_env.jenkins.build_tag'] = ENV['process.env.BUILD_TAG']
       track_hash['ci_env.jenkins.git_url'] = ENV['process.env.GIT_URL']
+    end
+  end
+
+  private
+  def self.start_local
+    @@bs_local = BrowserStack::Local.new
+    bs_local_args = {
+      'key' => ENV['BROWSERSTACK_ACCESS_KEY'],
+      'localIdentifier' => @@bstack_identifier
+    }
+    @@bs_local.start(bs_local_args)
+
+    $cucumber_after.call do
+      @@bs_local.stop() if @@bs_local
     end
   end
 end
