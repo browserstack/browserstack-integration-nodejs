@@ -1,4 +1,4 @@
-appraise "cucumber-old" do
+appraise "cucumber-latest" do
   gem "cucumber"
 end
 
