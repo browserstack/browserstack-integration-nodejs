@@ -27,6 +27,15 @@ var BrowserStackPatch = function () {
       if(process.env.RUN_ON_BSTACK && process.env.RUN_ON_BSTACK.toString().toLowerCase() == 'true') {
         frameworkPatch.addCapability('browserstack.user', process.env.BROWSERSTACK_USERNAME);
         frameworkPatch.addCapability('browserstack.key', process.env.BROWSERSTACK_ACCESS_KEY);
+
+        if(process.env.BSTACK_BROWSER) {
+          frameworkPatch.addCapability('browserName', process.env.BSTACK_BROWSER);
+        }
+        frameworkPatch.addCapability('os', process.env.BSTACK_OS);
+        frameworkPatch.addCapability('os_version', process.env.BSTACK_OS_VERSION);
+        frameworkPatch.addCapability('browser_version', process.env.BSTACK_BROWSER_VERSION);
+        frameworkPatch.addCapability('device', process.env.BSTACK_DEVICE);
+
         frameworkPatch.seleniumHost('hub.browserstack.com', 80);
         if(process.env.BSTACK_BUILD) {
           frameworkPatch.addCapability('build', process.env.BSTACK_BUILD);

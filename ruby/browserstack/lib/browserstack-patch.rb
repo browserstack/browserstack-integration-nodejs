@@ -13,12 +13,18 @@ module Selenium
         opts = args.shift || {}
         opts[:url] = opts[:url] || 'http://127.0.0.1:4444/wd/hub'
         opts[:desired_capabilities] = opts[:desired_capabilities] || {}
-        opts[:desired_capabilities][:browserName] = browser
+
+        opts[:desired_capabilities][:browserName] = ENV['BSTACK_BROWSER'] || browser
+        opts[:desired_capabilities][:browser_version] = ENV['BSTACK_BROWSER_VERSION']
+        opts[:desired_capabilities][:os] = ENV['BSTACK_OS']
+        opts[:desired_capabilities][:os_version] = ENV['BSTACK_OS_VERSION']
+        opts[:desired_capabilities][:device] = ENV['BSTACK_DEVICE']
 
         if ENV['RUN_ON_BSTACK'] && ENV['RUN_ON_BSTACK'].match(/true/i)
           opts[:url] = "http://#{ENV['BROWSERSTACK_USERNAME']}:#{ENV['BROWSERSTACK_ACCESS_KEY']}@hub.browserstack.com/wd/hub"
 
           opts[:desired_capabilities]['browserstack.framework'] = BrowserStack::get_framework
+          opts[:desired_capabilities]['browserstack.framework_version'] = BrowserStack::get_framework_version
           opts[:desired_capabilities]['build'] = ENV['BSTACK_BUILD'] if ENV['BSTACK_BUILD']
           opts[:desired_capabilities]['project'] = ENV['BSTACK_PROJECT'] if ENV['BSTACK_PROJECT']
           opts[:desired_capabilities]['name'] = ENV['BSTACK_NAME'] if ENV['BSTACK_NAME']
@@ -39,7 +45,7 @@ end
 module BrowserStack
   @@framework = 'ruby'
   @@bs_local = nil
-  @@bstack_identifier = 'asd'
+  @@bstack_identifier = "bstack_patches_#{(0...16).map { ('a'..'z').to_a[rand(26)] }.join}"
 
   def self.for(framework)
     @@framework = framework
@@ -47,6 +53,12 @@ module BrowserStack
 
   def self.get_framework
     @@framework
+  end
+
+  def self.get_framework_version
+    if @@framework.match(/cucumber/i)
+      return Cucumber::VERSION
+    end
   end
 
   def self.get_identifier
@@ -79,8 +91,10 @@ module BrowserStack
     }
     @@bs_local.start(bs_local_args)
 
-    $cucumber_after.call do
-      @@bs_local.stop() if @@bs_local
+    if @@framework.match(/cucumber/i)
+      $cucumber_after.call do
+        @@bs_local.stop() if @@bs_local
+      end
     end
   end
 end
