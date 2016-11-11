@@ -1,6 +1,6 @@
 require 'selenium/webdriver'
 
-require_relative '../../../browserstack.rb'
+require 'browserstack-patch'
 BrowserStack.for "cucumber"
 
 browser = Selenium::WebDriver.for :firefox
