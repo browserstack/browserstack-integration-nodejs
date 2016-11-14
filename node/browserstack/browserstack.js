@@ -35,6 +35,7 @@ var BrowserStackPatch = function () {
         frameworkPatch.addCapability('os_version', process.env.BSTACK_OS_VERSION);
         frameworkPatch.addCapability('browser_version', process.env.BSTACK_BROWSER_VERSION);
         frameworkPatch.addCapability('device', process.env.BSTACK_DEVICE);
+        frameworkPatch.trackFrameworkVersion();
 
         frameworkPatch.seleniumHost('hub.browserstack.com', 80);
         if(process.env.BSTACK_BUILD) {

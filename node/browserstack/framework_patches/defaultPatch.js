@@ -1,7 +1,9 @@
 exports.defaultPatch = function() {
-  var webdriver = require('selenium-webdriver'),
-    bstackCapabilities = {},
+  var bstackCapabilities = {
+      'browserstack.framework': 'noFramework'
+    },
     bstackURL = 'http://hub.browserstack.com:80/wd/hub',
+    webdriver,
     build;
   for(var index in global.process.mainModule.children) {
     var module = global.process.mainModule.children[index];
@@ -21,6 +23,7 @@ exports.defaultPatch = function() {
     seleniumHost: function(host, port) {
       bstackURL = 'http://' + host + ':' + port + '/wd/hub';
     },
+    trackFrameworkVersion: function() {},
     patch: function() {
       if(webdriver && build) {
         webdriver.Builder.prototype.build = function() {
