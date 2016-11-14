@@ -1,7 +1,6 @@
 {
   "name": "nightwatch-sample",
   "version": "0.1.0",
-  "description": "Enabling https in BrowserStack Automate",
   "license": "MIT",
   "dependencies": {
     "nightwatch": "^0.8.18"
