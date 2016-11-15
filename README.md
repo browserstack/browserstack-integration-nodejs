@@ -49,3 +49,11 @@ BROWSERSTACK_ACCESS_KEY - your BrowserStack accesskey
 ```node
 npm test
 ```
+
+## To integrate to your nightwatch framework
+
+- Add the following to `conf.js` file.
+
+```node
+require('browserstack-patch').Nightwatch();
+```
