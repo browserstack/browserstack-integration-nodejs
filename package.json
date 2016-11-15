@@ -4,8 +4,8 @@
   "description": "",
   "main": "browserstack.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "./node_modules/.bin/eslint ."
+    "test": "npm run lint",
+    "lint": "./node_modules/.bin/eslint framework_patches/*.js ci_environment.js browserstack.js"
   },
   "author": "",
   "license": "ISC",

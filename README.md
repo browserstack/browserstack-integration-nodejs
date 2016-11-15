@@ -1,60 +1,51 @@
-# BrowserStack-Patches
+# BrowserStack-Integration
 
-Patches for Selenium scripts and test suites to run on BrowserStack when RUN_ON_BS=1 is set in environment.
-Currently supports Node (Protractor, Nightwatch) and Ruby (Capybara, Rspec)
+Patches for Selenium scripts and test suites to run on BrowserStack when RUN_ON_BSTACK=true is set in environment.
+Currently supports Capybara
 
 ![BrowserStack Logo](https://d98b8t1nnulk5.cloudfront.net/production/images/layout/logo-header.png?1469004780)
 
-# Node.js
+# NodeJS
 
 ## Setup
 * Clone the repo
-* Install dependencies `cd node && npm install`
+* Install dependencies `npm install`
 * Export the environment variables for the Username and Access Key of your BrowserStack account
   
   ```
-  export BROWSERSTACK_USERNAME=<browserstack-username> &&
+  export BROWSERSTACK_USERNAME=<browserstack-username>
   export BROWSERSTACK_ACCESS_KEY=<browserstack-access-key>
   ```
 
 ## Running the test
 
 ### Node script
-- To run locally, run `node sample.js`
-- To run on BrowserStack, run `RUN_ON_BS=1 node sample.js`
-
-### Protractor test
-- To run locally, run `./node_modules/protractor/bin/protractor protractor/conf.js`
-- To run on BrowserStack, run `RUN_ON_BS=1 ./node_modules/protractor/bin/protractor protractor/conf.js`
+- To run locally, run `npm link && cd examples/simple_sample/ && npm install && npm link browserstack-patch`
+- To run on BrowserStack, run `RUN_ON_BSTACK=true node sample.js`
 
 ### Nightwatch test
-- To run locally, run `./node_modules/nightwatch/bin/nightwatch nightwatch/conf.js`
-- To run on BrowserStack, run `RUN_ON_BS=1 ./node_modules/nightwatch/bin/nightwatch nightwatch/conf.js`
+- To run locally, run `npm link && cd examples/nightwatch/ && npm install && npm link browserstack-patch`
+- To run on BrowserStack, run `RUN_ON_BSTACK=true ./node_modules/.bin/nightwatch -c conf.js`
 
+## Configuring Tests
 
-# Ruby
+The following environment variables are supported,
 
-## Setup
-* Clone the repo
-* Install dependencies `cd ruby && bundle install`
-* Export the environment variables for the Username and Access Key of your BrowserStack account
-  
-  ```
-  export BROWSERSTACK_USERNAME=<browserstack-username> &&
-  export BROWSERSTACK_ACCESS_KEY=<browserstack-access-key>
-  ```
+```
+RUN_ON_BSTACK - Boolean. To run your tests on BrowserStack
+BSTACK_BROWSER - The browser to run your tests on BrowserStack
+BSTACK_BROWSER_VERSION - The browser_version to run your tests on BrowserStack
+BSTACK_OS - The os to run your tests on BrowserStack
+BSTACK_OS_VERSION - The os_version to run your tests on BrowserStack
+BSTACK_DEVICE - The device to run your tests on BrowserStack
+BSTACK_LOCAL - Boolean. Whether to start/stop BrowserStackLocal for your tests
 
-## Running the test
+BROWSERSTACK_USERNAME - your BrowserStack username
+BROWSERSTACK_ACCESS_KEY - your BrowserStack accesskey
+```
 
-### Ruby script
-- To run locally, run `ruby sample.rb`
-- To run on BrowserStack, run `RUN_ON_BS=1 ruby sample.rb`
+## To run tests
 
-### Rspec test
-- To run locally, run `rspec spec`
-- To run on BrowserStack, run `RUN_ON_BS=1 rspec rspec/spec`
-
-### Cucumber test
-- To run locally, run `cd cucumber && cucumber`
-- To run on BrowserStack, run `cd cucumber && RUN_ON_BS=1 cucumber`
-
+```node
+npm test
+```

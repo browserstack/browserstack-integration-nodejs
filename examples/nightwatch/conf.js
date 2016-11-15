@@ -1,4 +1,4 @@
-require('../browserstack').Nightwatch();
+require('browserstack-patch').Nightwatch();
 
 nightwatch_config = {
   src_folders : [ "test" ],
