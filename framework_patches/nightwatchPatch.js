@@ -39,7 +39,7 @@ exports.nightwatchPatch = function() {
         Object.keys(patchOptions).forEach(function(patchKey) {
           options[patchKey] = patchOptions[patchKey];
         });
-	options.globals = options.globals || {};
+        options.globals = options.globals || {};
         var origAfter = options.globals.after;
         origAfter = origAfter || function(done) { done(); };
         options.globals.after = function(done) {
