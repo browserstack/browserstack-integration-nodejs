@@ -35,7 +35,7 @@ exports.nightwatchPatch = function() {
         Object.keys(patchOptions.desiredCapabilities).forEach(function(patchKey) {
           options.desiredCapabilities[patchKey] = patchOptions.desiredCapabilities[patchKey];
         });
-        delete(patchOptions.desiredCapabilities);
+        
         Object.keys(patchOptions).forEach(function(patchKey) {
           options[patchKey] = patchOptions[patchKey];
         });
