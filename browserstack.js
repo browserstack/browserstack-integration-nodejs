@@ -6,11 +6,13 @@ var browserstackLocal = require('browserstack-local');
 var BrowserStackPatch = function () {
   var bstackIdentifier = 'bstack_patches_' + (Math.random().toString(36)+'00000000000000000').slice(2, 18);
   var bstackLocal;
+  var bstackUserName = process.env.BROWSERSTACK_USERNAME || process.env.BROWSERSTACK_USER;
+  var bstackAccessKey = process.env.BROWSERSTACK_ACCESS_KEY || process.env.BROWSERSTACK_ACCESSKEY;
 
   var beforeAll = function(callback) {
     bstackLocal = new browserstackLocal.Local();
     bstackLocal.start({
-      key: process.env.BROWSERSTACK_ACCESS_KEY,
+      key: bstackAccessKey,
       localIdentifier: bstackIdentifier
     }, callback);
   };
@@ -24,9 +26,11 @@ var BrowserStackPatch = function () {
 
   return {
     patch: function(frameworkPatch) {
+      require('./keep_alive_patch.js');
+
       if(process.env.RUN_ON_BSTACK && process.env.RUN_ON_BSTACK.toString().toLowerCase() == 'true') {
-        frameworkPatch.addCapability('browserstack.user', process.env.BROWSERSTACK_USERNAME);
-        frameworkPatch.addCapability('browserstack.key', process.env.BROWSERSTACK_ACCESS_KEY);
+        frameworkPatch.addCapability('browserstack.user', bstackUserName);
+        frameworkPatch.addCapability('browserstack.key', bstackAccessKey);
 
         if(process.env.BSTACK_BROWSER) {
           frameworkPatch.addCapability('browserName', process.env.BSTACK_BROWSER);
