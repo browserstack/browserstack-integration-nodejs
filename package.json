@@ -5,7 +5,7 @@
   "main": "browserstack.js",
   "scripts": {
     "test": "npm run lint",
-    "lint": "./node_modules/.bin/eslint framework_patches/*.js ci_environment.js browserstack.js"
+    "lint": "./node_modules/.bin/eslint framework_patches/*.js ci_environment.js browserstack.js keep_alive_patch.js"
   },
   "author": "",
   "license": "ISC",
