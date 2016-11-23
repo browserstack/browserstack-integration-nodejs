@@ -10,11 +10,15 @@ var BrowserStackPatch = function () {
   var bstackAccessKey = process.env.BROWSERSTACK_ACCESS_KEY || process.env.BROWSERSTACK_ACCESSKEY;
 
   var beforeAll = function(callback) {
-    bstackLocal = new browserstackLocal.Local();
-    bstackLocal.start({
-      key: bstackAccessKey,
-      localIdentifier: bstackIdentifier
-    }, callback);
+    if(process.env.BSTACK_LOCAL && process.env.BSTACK_LOCAL.toLowerCase() == 'true') {
+      bstackLocal = new browserstackLocal.Local();
+      bstackLocal.start({
+        key: bstackAccessKey,
+        localIdentifier: bstackIdentifier
+      }, callback);
+    } else {
+      callback();
+    };
   };
   var afterAll = function(callback) {
     if(bstackLocal) {

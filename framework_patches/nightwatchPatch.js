@@ -35,9 +35,10 @@ exports.nightwatchPatch = function() {
         Object.keys(patchOptions.desiredCapabilities).forEach(function(patchKey) {
           options.desiredCapabilities[patchKey] = patchOptions.desiredCapabilities[patchKey];
         });
-        
         Object.keys(patchOptions).forEach(function(patchKey) {
-          options[patchKey] = patchOptions[patchKey];
+          if(patchKey != 'desiredCapabilities') {
+            options[patchKey] = patchOptions[patchKey];
+          }
         });
         options.globals = options.globals || {};
         var origAfter = options.globals.after;
