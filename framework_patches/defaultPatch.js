@@ -1,6 +1,6 @@
 exports.defaultPatch = function() {
   var bstackCapabilities = {
-      'browserstack.framework': 'noFramework'
+      'browserstack.framework': 'nodeFramework'
     },
     bstackURL = 'http://hub.browserstack.com:80/wd/hub',
     webdriver,
