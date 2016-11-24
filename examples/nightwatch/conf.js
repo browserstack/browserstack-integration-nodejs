@@ -1,4 +1,4 @@
-require('browserstack-patch').Nightwatch();
+require('browserstack-patch').integrate();
 
 nightwatch_config = {
   src_folders : [ "test" ],

@@ -66,14 +66,13 @@ var BrowserStackPatch = function () {
   };
 };
 
-exports.Node = function(config) {
-  (new BrowserStackPatch()).patch(new defaultPatch(config));
-};
-exports.Protractor = function() {
-  // var protractor = require('protractor');
-
-  // exports.Node('protractor');
-};
-exports.Nightwatch = function(config) {
-  (new BrowserStackPatch()).patch(new nightwatchPatch(config));
+exports.integrate = function() {
+  var globalPatch = new BrowserStackPatch();
+  var frameworkPatch;
+  if(require.main.filename.endsWith('/bin/nightwatch')) {
+    frameworkPatch = new nightwatchPatch();
+  } else {
+    frameworkPatch = new defaultPatch();
+  }
+  globalPatch.patch(frameworkPatch);
 };
