@@ -1,7 +1,7 @@
 {
   "name": "browserstack-automate",
-  "version": "1.0.0",
-  "description": "Run selenium tests on BrowseStack using our node.js integration.",
+  "version": "1.0.1",
+  "description": "Run selenium tests on BrowserStack using our node.js integration.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/browserstack/browserstack-integration-nodejs.git"
