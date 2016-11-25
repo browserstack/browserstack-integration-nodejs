@@ -1,7 +1,11 @@
 {
   "name": "browserstack-automate",
   "version": "1.0.0",
-  "description": "",
+  "description": "Run selenium tests on BrowseStack using our node.js integration.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/browserstack/browserstack-integration-nodejs.git"
+  },
   "main": "browserstack.js",
   "scripts": {
     "test": "npm run lint",
@@ -16,5 +20,12 @@
     "eslint-config-standard": "^6.2.1",
     "eslint-plugin-promise": "^3.3.1",
     "eslint-plugin-standard": "^2.0.1"
-  }
+  },
+  "keywords": [
+    "browserstack", "browserstack-node", "browserstack integration", "browserstack automate", "selenium", "browserstack selenium"
+  ],
+  "bugs": {
+    "url": "https://github.com/browserstack/browserstack-integration-nodejs/issues"
+  },
+  "homepage": "https://github.com/browserstack/browserstack-integration-nodejs"
 }

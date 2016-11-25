@@ -1,7 +1,7 @@
 # BrowserStack-Integration
 
 Patches for Selenium scripts and test suites to run on BrowserStack when RUN_ON_BSTACK=true is set in environment.
-Currently supports Capybara
+Currently supports Nightwatch.js.
 
 ![BrowserStack Logo](https://d98b8t1nnulk5.cloudfront.net/production/images/layout/logo-header.png?1469004780)
 
