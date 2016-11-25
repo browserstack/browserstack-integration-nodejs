@@ -20,11 +20,11 @@ Currently supports Capybara
 ## Running the test
 
 ### Node script
-- To run locally, run `npm link && cd examples/simple_sample/ && npm install && npm link browserstack-patch`
+- To run locally, run `npm link && cd examples/simple_sample/ && npm install && npm link browserstack-automate`
 - To run on BrowserStack, run `RUN_ON_BSTACK=true node sample.js`
 
 ### Nightwatch test
-- To run locally, run `npm link && cd examples/nightwatch/ && npm install && npm link browserstack-patch`
+- To run locally, run `npm link && cd examples/nightwatch/ && npm install && npm link browserstack-automate`
 - To run on BrowserStack, run `RUN_ON_BSTACK=true ./node_modules/.bin/nightwatch -c conf.js`
 
 ## Configuring Tests
@@ -50,5 +50,5 @@ npm test
 - Add the following to `conf.js` file.
 
 ```node
-require('browserstack-patch').Nightwatch();
+require('browserstack-automate').Nightwatch();
 ```
