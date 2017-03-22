@@ -1,11 +1,11 @@
 require('browserstack-automate').Nightwatch();
 
-nightwatch_config = {
-  src_folders : [ "test" ],
+var nightwatch_config = {
+  src_folders : [ 'test' ],
   globals_path: 'globals.js',
 
   selenium : {
-    "start_process" : false
+    'start_process' : false
   },
 
   test_settings: {
