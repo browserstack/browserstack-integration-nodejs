@@ -8,7 +8,9 @@ exports.nightwatchPatch = function() {
   };
   return {
     addCapability: function(key, value) {
-      patchOptions['desiredCapabilities'][key] = value;
+      if (value !== undefined) {
+        patchOptions['desiredCapabilities'][key] = value;
+      }
     },
     seleniumHost: function(host, port) {
       patchOptions['seleniumHost'] = host;
