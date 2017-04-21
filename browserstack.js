@@ -35,27 +35,16 @@ var BrowserStackPatch = function () {
       if(process.env.RUN_ON_BSTACK && process.env.RUN_ON_BSTACK.toString().toLowerCase() == 'true') {
         frameworkPatch.addCapability('browserstack.user', bstackUserName);
         frameworkPatch.addCapability('browserstack.key', bstackAccessKey);
+        frameworkPatch.addCapability('os', process.env.BSTACK_OS);
+        frameworkPatch.addCapability('os_version', process.env.BSTACK_OS_VERSION);
+        frameworkPatch.addCapability('browser_version', process.env.BSTACK_BROWSER_VERSION);
+        frameworkPatch.addCapability('device', process.env.BSTACK_DEVICE);
+
         frameworkPatch.trackFrameworkVersion();
         frameworkPatch.seleniumHost('hub.browserstack.com', 80);
 
         if(process.env.BSTACK_BROWSER) {
           frameworkPatch.addCapability('browserName', process.env.BSTACK_BROWSER);
-        }
-
-        if(process.env.BSTACK_OS) {
-          frameworkPatch.addCapability('os', process.env.BSTACK_OS);
-        }
-
-        if(process.env.BSTACK_OS_VERSION) {
-          frameworkPatch.addCapability('os_version', process.env.BSTACK_OS_VERSION);
-        }
-
-        if(process.env.BSTACK_BROWSER_VERSION) {
-          frameworkPatch.addCapability('browser_version', process.env.BSTACK_BROWSER_VERSION);
-        }
-
-        if(process.env.BSTACK_DEVICE) {
-          frameworkPatch.addCapability('device', process.env.BSTACK_DEVICE);
         }
 
         if(process.env.BSTACK_BUILD) {
