@@ -18,7 +18,7 @@ var BrowserStackPatch = function () {
       }, callback);
     } else {
       callback();
-    };
+    }
   };
   var afterAll = function(callback) {
     if(bstackLocal) {
@@ -35,30 +35,35 @@ var BrowserStackPatch = function () {
       if(process.env.RUN_ON_BSTACK && process.env.RUN_ON_BSTACK.toString().toLowerCase() == 'true') {
         frameworkPatch.addCapability('browserstack.user', bstackUserName);
         frameworkPatch.addCapability('browserstack.key', bstackAccessKey);
-
-        if(process.env.BSTACK_BROWSER) {
-          frameworkPatch.addCapability('browserName', process.env.BSTACK_BROWSER);
-        }
         frameworkPatch.addCapability('os', process.env.BSTACK_OS);
         frameworkPatch.addCapability('os_version', process.env.BSTACK_OS_VERSION);
         frameworkPatch.addCapability('browser_version', process.env.BSTACK_BROWSER_VERSION);
         frameworkPatch.addCapability('device', process.env.BSTACK_DEVICE);
-        frameworkPatch.trackFrameworkVersion();
 
+        frameworkPatch.trackFrameworkVersion();
         frameworkPatch.seleniumHost('hub.browserstack.com', 80);
+
+        if(process.env.BSTACK_BROWSER) {
+          frameworkPatch.addCapability('browserName', process.env.BSTACK_BROWSER);
+        }
+
         if(process.env.BSTACK_BUILD) {
           frameworkPatch.addCapability('build', process.env.BSTACK_BUILD);
         }
+
         if(process.env.BSTACK_PROJECT) {
           frameworkPatch.addCapability('project', process.env.BSTACK_PROJECT);
         }
+
         if(process.env.BSTACK_NAME) {
           frameworkPatch.addCapability('name', process.env.BSTACK_NAME);
         }
+
         if(process.env.BSTACK_LOCAL && process.env.BSTACK_LOCAL.toLowerCase() == 'true') {
           frameworkPatch.addCapability('browserstack.local', true);
           frameworkPatch.addCapability('browserstack.localIdentifier', bstackIdentifier);
         }
+
         trackEnvironment(frameworkPatch.addCapability);
         frameworkPatch.patch(beforeAll, afterAll);
       }
