@@ -1,3 +1,8 @@
+**NOTE: THIS PROJECT HAS BEEN DEPRECATED AND IS NO LONGER ACTIVELY MAINTAINED**
+
+1. For accessing *selenium-webdriver* samples please refer to [this](https://github.com/browserstack/automate-node-samples) repository.
+2. For accessing *nightwatch* samples please refer to [this](https://github.com/browserstack/nightwatch-browserstack) repository.
+
 # BrowserStack-Integration
 
 Patches for Selenium scripts and test suites to run on BrowserStack when RUN_ON_BSTACK=true is set in environment.
